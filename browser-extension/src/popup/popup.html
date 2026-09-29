@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KARYA Voice Agent</title>
+  <style>
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #07090e;
+      color: #f1f5f9;
+      box-sizing: border-box;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* KARYA Logo: Hollow central circle with smaller hollow circle beneath */
+    .karya-logo {
+      width: 24px;
+      height: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+    .circle-main {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #818cf8;
+      box-shadow: 0 0 10px rgba(129, 140, 248, 0.4);
+    }
+    .circle-sub {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1.5px solid #22d3ee;
+      box-shadow: 0 0 6px rgba(34, 211, 238, 0.4);
+    }
+    .title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+    .badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(129, 140, 248, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(129, 140, 248, 0.3);
+    }
+    .status-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .dot.connected { background: #34d399; box-shadow: 0 0 8px #34d399; }
+    .dot.disconnected { background: #f87171; }
+    .tab-info {
+      font-size: 11px;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-t: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 12px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(255,255,255,0.1);
+      transition: .2s;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #6366f1;
+    }
+    input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    button {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #e0e7ff;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    button:hover {
+      background: rgba(99, 102, 241, 0.25);
+    }
+    button.secondary {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+    button.secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-container">
+      <div class="karya-logo">
+        <div class="circle-main"></div>
+        <div class="circle-sub"></div>
+      </div>
+      <h1 class="title">KARYA</h1>
+    </div>
+    <span class="badge" id="versionBadge">v1.0.0</span>
+  </div>
+
+  <div class="status-card">
+    <div class="status-row">
+      <span style="color: #94a3b8;">Companion</span>
+      <div class="status-indicator">
+        <span class="dot connected" id="statusDot"></span>
+        <span id="statusText" style="color: #34d399;">Connected</span>
+      </div>
+    </div>
+    <div style="font-size: 11px; color: #64748b; margin-top: 4px;">Current Tab:</div>
+    <div class="tab-info" id="activeTabInfo">Loading active tab...</div>
+
+    <div class="toggle-row">
+      <span style="color: #cbd5e1;">Browser Access</span>
+      <label class="switch">
+        <input type="checkbox" id="browserAccessToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button id="openKaryaBtn">Open KARYA</button>
+    <button id="settingsBtn" class="secondary">Settings</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

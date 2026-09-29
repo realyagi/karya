@@ -1,0 +1,20 @@
+{
+  "name": "karya-desktop-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KARYA Local Windows Desktop Bridge Server",
+  "main": "dist/server.js", "bin": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.17.0",
+    "typescript": "^5.0.0"
+  }
+}

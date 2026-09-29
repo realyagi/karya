@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KARYA Extension Options & Pairing</title>
+  <style>
+    body {
+      max-width: 540px;
+      margin: 40px auto;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #07090e;
+      color: #f1f5f9;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    h2 {
+      color: #818cf8;
+      margin-top: 0;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .field {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #cbd5e1;
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      color: #fff;
+      font-size: 14px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+    .btn {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #4338ca;
+    }
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      margin-left: 8px;
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.3);
+    }
+    .status-msg {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      display: none;
+    }
+    .status-success {
+      display: block;
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: #34d399;
+    }
+    .status-error {
+      display: block;
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      color: #f87171;
+    }
+  </style>
+</head>
+<body>
+  <h2>Pair KARYA Browser Extension</h2>
+  <p>To allow KARYA Voice Agent to navigate tabs and read web pages, pair your extension using the pairing code generated in KARYA settings.</p>
+
+  <div class="field">
+    <label for="karyaUrlInput">KARYA Web Application URL</label>
+    <input type="text" id="karyaUrlInput" value="http://localhost:3000" />
+  </div>
+
+  <div class="field">
+    <label for="pairingCodeInput">One-Time Pairing Code</label>
+    <input type="text" id="pairingCodeInput" placeholder="Enter pairing code from KARYA Settings" />
+  </div>
+
+  <div>
+    <button class="btn" id="pairBtn">Pair Extension</button>
+    <button class="btn btn-danger" id="disconnectBtn">Disconnect</button>
+  </div>
+
+  <div id="statusNotice" class="status-msg"></div>
+
+  <script src="options.js"></script>
+</body>
+</html>
